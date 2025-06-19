@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+public class PriorityQueue{
+  Node[] queue;
+  int size;
+  
+  public PriorityQueue(int capacity){
+    queue=new Node[capacity];
+    size=0;
+  }
+    
+  class Node{
+    String value;
+    int priority;
+ 
+    public Node(String value, int priority){
+      this.value=value;
+      this.priority=priority;
+ }
+}
+  
+  public void enqueue(String value, int priority){
+    if(size==queue.length){
+      return;
+  }
+  Node n=new Node(value, priority);
+  int i=size-1;
+  while(i>=0 && queue[i].priority<priority){
+    queue[i+1]=queue[i];
+    i--;
+  }
+  queue[i+1]=n;
+  size++;
+  }
+  
+  public void dequeue(){
+    if(size==0){
+      System.out.println("Queue is empty.");
+      return;
+    }
+    String value=queue[0].value;
+    for(int i=1;i<size;i++){
+      queue[i-1]=queue[i];
+    }
+    size--;
+    System.out.println("Treated Patient: "+value);
+  }
+  
+  public void display(){
+      if(size==0){
+          System.out.println("Queue is empty.");
+          return;
+      }
+    System.out.print("Current Queue: ");
+    for(int i=0;i<size;i++){
+      System.out.print(queue[i].value+"("+queue[i].priority+") ");
+    }
+    System.out.println();
+  }
+  
+  public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    PriorityQueue q=new PriorityQueue(n);
+    for(int i=0;i<n;i++){
+      String op=sc.next();
+      if(op.equals("ENQUEUE")){
+        String val=sc.next();
+        int priority=sc.nextInt();
+        q.enqueue(val,priority);
+    }
+    else if(op.equals("DEQUEUE")){
+      q.dequeue();
+    }
+    else if(op.equals("DISPLAY")){
+      q.display();
+    }
+  }
+  }
+}
