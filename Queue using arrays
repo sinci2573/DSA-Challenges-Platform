@@ -1,0 +1,65 @@
+import java.util.Scanner;
+public class MyQueue{
+  String[] queue;
+  int front, rear, size;
+  
+  public MyQueue(int capacity){
+    queue=new String[capacity];
+    front=0;
+    rear=-1;
+    size=0;
+  }
+  
+  public void enqueue(String item){
+    if(size==queue.length){
+      System.out.println("Queue is full. Cannot add "+item);
+      return;
+    }
+    rear=(rear+1)%queue.length;
+    queue[rear]=item;
+    size++;
+  }
+  
+  public void dequeue(){
+    if(size==0){
+      System.out.println("Served Customer: Queue is empty. No customer to serve.");
+      return;
+    }
+    String item=queue[front];
+    front=(front+1)%queue.length;
+    size--;
+    System.out.println("Served Customer: "+item);
+  }
+  
+  public void display(){
+    if(size==0){
+      System.out.println("Queue is empty.");
+      return;
+    }
+    
+    System.out.print("Current Queue: ");
+    for(int i=front;i<=rear;i++){
+      System.out.print(queue[i]+" ");
+    }
+    System.out.println("");
+  }
+  public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    MyQueue q=new MyQueue(n);
+    int m=sc.nextInt();
+    for(int i=0;i<m;i++){
+    String s=sc.next();
+    if(s.equals("ENQUEUE")){
+      String val=sc.next();
+      q.enqueue(val);
+    }
+    else if(s.equals("DEQUEUE")){
+      q.dequeue();
+    }
+    else if(s.equals("DISPLAY")){
+      q.display();
+    }
+    }
+  }
+}
