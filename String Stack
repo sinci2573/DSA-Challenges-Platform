@@ -1,0 +1,34 @@
+import java.util.Scanner;
+import java.util.Stack;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        Stack<String> stack=new Stack<>();
+        for(int i=0;i<n;i++){
+            String op=sc.next();
+            if(op.equals("Push")){
+                String val=sc.next();
+                stack.push(val);
+            }
+            else if(op.equals("Top")){
+                if(!stack.empty())
+                    System.out.println(stack.peek());
+                else
+                    System.out.println("Stack Underflow");
+            }
+            else if(op.equals("Pop")){
+                if(!stack.empty())
+                    stack.pop();
+                else
+                    System.out.println("Stack Underflow");
+            }
+            else if(op.equals("Size")){
+                System.out.println(stack.size());
+            }
+            else if(op.equals("IsEmpty")){
+                System.out.println(stack.empty());
+            }
+        }
+    }
+}
